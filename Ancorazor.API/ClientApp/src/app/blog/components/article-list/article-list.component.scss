@@ -1,0 +1,100 @@
+@import "shared";
+// Styling for the post page
+.item {
+  @media only screen and (min-width: 992px) {
+    .operations {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    :hover {
+      .operations {
+        opacity: 1;
+      }
+    }
+  }
+  .operations {
+    button {
+      text-transform: uppercase;
+      margin-left: 8px;
+      @media only screen and (max-width: 992px) {
+        line-height: 26px;
+        padding: 0 5px;
+        min-width: initial;
+      }
+    }
+  }
+
+  hr {
+    margin: 1.5vh 0 1.5vh;
+  }
+
+  // 模拟 stagger 效果
+  // 总转场动画时间 = transition duration + stagger duration
+  $pageSize: 10;
+  $duartion: 200ms;
+  @for $i from 1 through $pageSize {
+    $delay: $duartion / $pageSize * $i;
+    &.delay-#{$i} {
+      animation-delay: $delay;
+    }
+  }
+}
+
+$highlight-normal: $primary;
+$highlight-draft: $green;
+
+.post-preview {
+  &.draft > a {
+    color: $gray-600;
+    &:focus,
+    &:hover {
+      color: $highlight-draft;
+    }
+  }
+  > a {
+    color: $gray-900;
+    &:focus,
+    &:hover {
+      text-decoration: none;
+      color: $highlight-normal;
+      cursor: pointer;
+    }
+    > .post-title {
+      font-size: 20px;
+      margin-top: 2vh;
+      margin-bottom: 1vh;
+    }
+    > .post-subtitle {
+      font-weight: 300;
+      font-size: 20px;
+      margin: 1vh 0 1vh;
+    }
+  }
+  .post-meta {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 0;
+    line-height: 25px;
+    color: $gray-600;
+    > a {
+      text-decoration: none;
+      color: $gray-900;
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+        color: $primary;
+      }
+    }
+  }
+  @media only screen and (min-width: 992px) {
+    > a {
+      > .post-title {
+        font-size: 36px;
+      }
+    }
+    .post-meta {
+      font-size: 18px;
+      line-height: 40px;
+    }
+  }
+}

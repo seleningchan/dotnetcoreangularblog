@@ -1,0 +1,60 @@
+<app-header [model]="model"></app-header>
+
+<!-- Post Content -->
+<div class="container" *ngIf="content" [ngClass]="animations.content.class">
+  <div class="row">
+    <div
+      id="viewer"
+      class="col-lg-10 col-md-10 mx-auto"
+      [innerHTML]="content"
+    ></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 col-md-10 mx-auto">
+      <div class="article-tags col-12">
+        <div class="color-lightgray tags-title">标签</div>
+        <a
+          mat-stroked-button
+          color="primary"
+          href="/tags/{{ tag.alias }}"
+          *ngFor="let tag of model.tags; let i = index"
+          >{{ tag.name }}</a
+        >
+      </div>
+      <div class="row justify-content-between article-actions">
+        <div class="col-6">
+          <ng-container *ngIf="model.previous">
+            <a
+              mat-stroked-button
+              [title]="model.previous.title"
+              [matTooltip]="model.previous.title"
+              [routerLink]="'/article/' + model.previous.path"
+              >← Prev</a
+            >
+          </ng-container>
+          <ng-container *ngIf="!model.previous">
+            <a mat-stroked-button disabled>← Prev</a>
+          </ng-container>
+          <ng-container *ngIf="model.next">
+            <a
+              mat-stroked-button
+              [title]="model.next.title"
+              [matTooltip]="model.next.title"
+              [routerLink]="'/article/' + model.next.path"
+              >Next →</a
+            >
+          </ng-container>
+          <ng-container *ngIf="!model.next">
+            <a mat-stroked-button disabled>Next →</a>
+          </ng-container>
+        </div>
+        <div class="col-6">
+          <!-- TODO: Share -->
+        </div>
+      </div>
+      <div class="row article-comments" id="comments">
+        <!-- TODO: Comments -->
+      </div>
+    </div>
+  </div>
+</div>

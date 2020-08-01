@@ -1,0 +1,207 @@
+@import "variables";
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: $primary-font;
+  font-size: 14px;
+  color: $gray-900;
+}
+
+html,
+body {
+  overflow-y: initial !important;
+}
+
+/* === scrollbar === */
+body {
+  &.scrollbar {
+    &::-webkit-scrollbar {
+      width: 6px;
+      background-color: $gray-200;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $primary;
+      background-image: -webkit-gradient(
+        linear,
+        0 0,
+        0 100%,
+        color-stop(0.5, rgba(255, 255, 255, 0.2)),
+        color-stop(0.5, transparent),
+        to(transparent)
+      );
+      opacity: 1;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: transparent;
+    }
+  }
+}
+
+/* === helper styles === */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 800;
+}
+
+a {
+  color: $gray-900;
+  @include transition-all;
+  &:focus,
+  &:hover {
+    color: $primary;
+  }
+}
+
+blockquote {
+  font-style: italic;
+  color: $gray-600;
+}
+
+.section-heading {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 60px;
+}
+
+.caption {
+  font-size: 14px;
+  font-style: italic;
+  display: block;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+::-moz-selection {
+  color: $white;
+  background: $primary;
+  text-shadow: none;
+}
+
+::selection {
+  color: $white;
+  background: $primary;
+  text-shadow: none;
+}
+
+img::selection {
+  color: $white;
+  background: transparent;
+}
+
+img::-moz-selection {
+  color: $white;
+  background: transparent;
+}
+
+.padding {
+  &-sm {
+    padding: 10px;
+  }
+  &-md {
+    padding: 20px;
+  }
+  &-lg {
+    padding: 30px;
+  }
+  &-xl {
+    padding: 45px;
+  }
+}
+
+.color-lightgray {
+  color: $gray-500;
+}
+
+.color-gray {
+  color: $gray-700;
+}
+
+#content {
+  min-height: 1000px;
+}
+
+/* markdown */
+.sg-front-matter {
+  display: none;
+}
+
+/* nprogress */
+#nprogress {
+  pointer-events: none;
+  /* Fancy blur effect */
+  .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    box-shadow: 0 0 10px $primary, 0 0 5px $primary;
+    opacity: 1;
+
+    -webkit-transform: rotate(3deg) translate(0px, -4px);
+    -ms-transform: rotate(3deg) translate(0px, -4px);
+    transform: rotate(3deg) translate(0px, -4px);
+  }
+  .bar {
+    background: $primary;
+
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+  }
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+  #nprogress .spinner,
+  #nprogress .bar {
+    position: absolute;
+  }
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* tags */
+.article-tags {
+  padding: 0 0 15px 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid $gray-200;
+  .tags-title {
+    margin-bottom: 5px;
+  }
+  a.mat-stroked-button {
+    margin-right: 8px;
+    border-color: lighten($primary, 20%);
+  }
+}

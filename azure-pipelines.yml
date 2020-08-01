@@ -1,0 +1,49 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+
+variables:
+  tagName: '$(Build.BuildNumber)'
+  imageName: '$(dockerId)/ancorazor'
+  system.debug: true
+
+steps:
+- task: replacetokens@3
+  inputs:
+    targetFiles: '**/appsettings.json'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'fail'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+    
+# build & push with multiple tags
+- script: |
+    docker build -t $(imageName):$(tagName) -t $(imageName):latest .
+    docker login -u $(dockerId) -p $(dockerPassword) 2> login.txt
+    rm -rf login.txt
+    docker push $(imageName):$(tagName)
+    docker push $(imageName):latest
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: 'build/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: replacetokens@3
+  inputs:
+    rootDirectory: '$(Build.ArtifactStagingDirectory)'
+    targetFiles: '**/*.yml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'fail'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Docker files'
+    publishLocation: 'Container'

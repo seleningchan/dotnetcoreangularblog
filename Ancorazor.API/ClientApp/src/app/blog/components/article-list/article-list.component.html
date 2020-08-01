@@ -1,0 +1,63 @@
+<ng-container *ngIf="headerModel">
+  <app-header [model]="headerModel"></app-header>
+</ng-container>
+<div class="container" id="articleList">
+  <div class="row">
+    <div class="col-lg-11 col-md-11 mx-auto list" *ngIf="data">
+      <ng-container *ngFor="let item of data.list; let i = index">
+        <div
+          class="item delay-{{ i + 1 }}"
+          [ngClass]="animations.articles.class"
+        >
+          <div class="post-preview {{ item.isDraft ? 'draft' : '' }}">
+            <a [routerLink]="'/article/' + item.path" title="{{ item.alias }}">
+              <h2 class="post-title">
+                {{ item.title }}
+              </h2>
+              <h3 class="post-subtitle">
+                {{ item.digest }}
+              </h3>
+            </a>
+            <div class="row">
+              <span class="post-meta col-auto mr-auto">
+                Posted on
+                {{ item.createdAt | date: "yy·M·d h:mma" }}
+              </span>
+              <span class="operations col-auto" *ngIf="store.userIsAvailable">
+                <!-- <span class="operations col-auto"> -->
+                <button mat-button color="danger" (click)="delete(item, i)">
+                  Delete
+                </button>
+                <a mat-button color="primary" [routerLink]="['/edit', item.id]">
+                  Edit
+                </a>
+              </span>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </ng-container>
+      <!-- button page turn animation -->
+      <div class="clearfix" [ngClass]="animations.pagination.class">
+        <a
+          mat-flat-button
+          color="primary"
+          class="float-left"
+          [routerLink]="['/index', data.previousPageIndex]"
+          *ngIf="data.hasPrevious"
+          [attr.disabled]="transitionStore.isTransitioning ? '' : null"
+          >← Newer</a
+        >
+        <a
+          mat-flat-button
+          color="primary"
+          class="float-right"
+          [routerLink]="['/index', data.nextPageIndex]"
+          *ngIf="data.hasNext"
+          [attr.disabled]="transitionStore.isTransitioning ? '' : null"
+          >Older →</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

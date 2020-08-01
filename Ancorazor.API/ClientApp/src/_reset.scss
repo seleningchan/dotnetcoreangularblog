@@ -1,0 +1,286 @@
+/* === material === */
+.mat-button,
+.mat-fab,
+.mat-flat-button,
+.mat-icon-button,
+.mat-mini-fab,
+.mat-raised-button,
+.mat-stroked-button,
+.mat-simple-snackbar {
+  font-family: "Microsoft YaHei";
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.mat-button,
+.mat-dialog-title {
+  text-transform: uppercase;
+}
+
+.mat-button .mat-button-wrapper > .fas {
+  vertical-align: initial;
+}
+
+.mat-flat-button {
+  font-size: 14px;
+  font-weight: 800;
+  padding: 10px 25px !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 0 !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s;
+  @media only screen and (max-width: 992px) {
+    padding: 7px 20px;
+  }
+}
+
+.mat-flat-button.mat-primary {
+  color: $white;
+  background-color: $primary;
+  border-color: $primary;
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: darken($primary, 7.5);
+    border-color: darken($primary, 7.5);
+  }
+  &[disabled],
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+.mat-snack-bar-container {
+  background: $white;
+  color: rgba($color: $black, $alpha: 0.7);
+  .mat-simple-snackbar-action {
+    color: $primary;
+  }
+}
+
+$custom-mat-colors: "danger" $danger, "shit" #000;
+@each $i in $custom-mat-colors {
+  $name: nth($i, 1);
+  $mat-color: nth($i, 2);
+  .mat-#{$name} {
+    color: $mat-color;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: rgba($color: $mat-color, $alpha: 0.01);
+    }
+    .mat-button-focus-overlay {
+      background: $mat-color;
+    }
+  }
+}
+
+/* === bootstrap === */
+
+* {
+  &:active,
+  :focus {
+    outline: none !important;
+  }
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+label {
+  margin-bottom: 0;
+}
+
+.collapse.navbar-collapse {
+  display: none;
+  &.show {
+    display: block;
+  }
+}
+
+/* === animate.css === */
+.animated {
+  animation-fill-mode: forwards;
+  &.faster {
+    animation-duration: 500ms;
+  }
+  &.fast {
+    animation-duration: 800ms;
+  }
+  &.slower {
+    animation-duration: 3000ms;
+  }
+  &.slow {
+    animation-duration: 2000ms;
+  }
+}
+
+// 避免 fade 系动画在 Angular 渲染后还没有开始动画前闪烁
+.transparent {
+  &.enter {
+    opacity: 1;
+    &.animated {
+      opacity: 0;
+    }
+  }
+  &.leave {
+    opacity: 0;
+    &.animated {
+      opacity: 1;
+    }
+  }
+}
+
+/* === highlight.js === */
+
+@mixin code-block() {
+  font-family: $code-font, $primary-font;
+  color: $code-normal;
+  border-radius: 0.2rem;
+}
+
+.editor-preview-side {
+  background: $white;
+}
+
+#viewer,
+.editor-preview-side {
+  // code block
+  pre,
+  code {
+    @include code-block();
+    font-size: 16px;
+  }
+  img {
+    max-width: 100%;
+  }
+  > pre {
+    background: linear-gradient(
+      to bottom,
+      rgba(196, 216, 224, 0.15),
+      rgba(175, 200, 233, 0.15)
+    );
+    color: $code-normal;
+    padding: 20px;
+
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #fb443d;
+    }
+
+    .hljs-comment,
+    .hljs-quote {
+      color: #847fbb;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+      color: #096fe9;
+    }
+
+    .hljs-function {
+      color: $code-keyword;
+      .hljs-params {
+        color: $code-normal;
+        .hljs-keyword {
+          color: $code-keyword;
+        }
+      }
+      .hljs-title {
+        color: $code-normal;
+      }
+    }
+
+    .hljs-number,
+    .hljs-meta,
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-type {
+      color: $code-keyword;
+    }
+  }
+}
+
+@mixin inline-code-block() {
+  color: $black;
+  padding: 2px 4px;
+  margin: 0 4px;
+  background: linear-gradient(
+    to right,
+    rgba(63, 10, 255, 0.1),
+    rgba(16, 119, 255, 0.1)
+  );
+  font-size: inherit;
+}
+
+#viewer {
+  margin-top: 50px;
+  font-size: 16px;
+
+  // inline code block
+  code:not(.hljs-code) {
+    @include inline-code-block();
+  }
+
+  a {
+    text-decoration: #000 underline;
+  }
+}
+
+.editor-preview-side {
+  code:not([class^="language-"]) {
+    @include inline-code-block();
+  }
+  pre > code {
+    @include code-block();
+    color: $code-normal !important;
+    padding: initial !important;
+    margin: inherit !important;
+    background: initial !important;
+  }
+}
+
+/* === simple mde === */
+$editor-height: 700px;
+.editor-toolbar {
+  font-size: 16px;
+  button[title="Toggle Fullscreen (F11)"],
+  button[title="Toggle Preview (Ctrl-P)"],
+  button[title="Toggle Side by Side (F9)"],
+  i.separator:last-of-type {
+    display: none;
+  }
+  &.fullscreen {
+    position: relative;
+  }
+}
+.CodeMirror {
+  height: $editor-height !important;
+}
+.CodeMirror-fullscreen {
+  position: relative !important;
+  top: 0;
+  float: left;
+}
+.editor-preview-side {
+  top: 0;
+  position: relative;
+  height: $editor-height;
+}
+
+/* === Gitment ===*/
+.gitment-container {
+  width: 100%;
+}

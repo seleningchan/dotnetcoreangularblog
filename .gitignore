@@ -1,0 +1,53 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+
+# nodejs
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+.nuxt/
+dist/
+*.pubxml
+/Ancorazor.API/Properties/PublishProfiles
+SmartSqlMapConfig.Development.xml
+/Ancorazor.API/SmartSqlMapConfig.Production.xml
+/Ancorazor.API/SmartSqlMapConfig.Release.xml
+/Ancorazor.EF.Entity/appsettings.json
+/Ancorazor.API/Upload
+/Ancorazor.API/Logs
